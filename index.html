@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Happy Birthday, My Love</title>
+  <meta name="description"
+    content="A special birthday letter and celebration for the most beautiful girl in the world." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600&family=Dancing+Script:wght@500;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* ============================================================
+       RESET & TOKENS
+    ============================================================ */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --blush: #f7c5d0;
+      --rose: #e8728a;
+      --deep-rose: #c44569;
+      --rose-gold: #b5676b;
+      --cream: #fffaf8;
+      --gold: #d4a66a;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0a0306;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ============================================================
+       APP SHELL
+    ============================================================ */
+    #app {
+      position: relative;
+      width: 100%;
+      max-width: 430px;
+      margin: 0 auto;
+      background: #0a0306;
+      overflow: hidden;
+      /* clips parallax overflow */
+    }
+
+    @media (min-width: 600px) {
+      body {
+        display: flex;
+        justify-content: center;
+        background: radial-gradient(ellipse at 30% 50%, #2e0812 0%, #0a0306 70%);
+        padding: 32px 0 80px;
+      }
+
+      #app {
+        border-radius: 50px;
+        box-shadow:
+          0 0 0 11px #0a0306,
+          0 0 0 13px #2d1119,
+          0 70px 140px rgba(0, 0, 0, 0.98);
+      }
+    }
+
+    @media (max-width: 599px) {
+      #app {
+        max-width: 100%;
+      }
+    }
+
+    /* ============================================================
+       FLOATING PARTICLES
+    ============================================================ */
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      opacity: 0;
+      animation: floatUp linear infinite;
+      user-select: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(110vh) scale(0.5);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 0.55;
+      }
+
+      90% {
+        opacity: 0.35;
+      }
+
+      100% {
+        transform: translateY(-10vh) scale(1.1);
+        opacity: 0;
+      }
+    }
+
+    /* ============================================================
+       HERO — full bleed with parallax
+    ============================================================ */
+    #hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .hero-img-wrap {
+      position: absolute;
+      inset: -15%;
+      /* extra room for parallax travel */
+      z-index: 0;
+    }
+
+    .hero-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transform-origin: center center;
+      will-change: transform;
+      filter: brightness(0.6) saturate(1.2);
+    }
+
+    /* gradient overlays */
+    .hero-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(10, 3, 6, 0.20) 0%,
+          rgba(10, 3, 6, 0.05) 30%,
+          rgba(10, 3, 6, 0.60) 72%,
+          rgba(10, 3, 6, 0.97) 100%),
+        radial-gradient(ellipse 80% 50% at 50% 60%, rgba(196, 69, 105, 0.15) 0%, transparent 70%);
+    }
+
+    /* vignette rim */
+    .hero-img-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      box-shadow: inset 0 0 80px rgba(196, 69, 105, 0.2);
+    }
+
+    .hero-text {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      padding: 0 28px 64px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(196, 69, 105, 0.22);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(247, 197, 208, 0.28);
+      border-radius: 100px;
+      padding: 7px 20px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--blush);
+      letter-spacing: 0.06em;
+      margin-bottom: 18px;
+      animation: fadeInUp 1s ease 0.5s both;
+    }
+
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--rose);
+      animation: pulseDot 1.6s ease-in-out infinite;
+    }
+
+    @keyframes pulseDot {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(1.8);
+        opacity: 0.35;
+      }
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(38px, 11vw, 56px);
+      font-weight: 700;
+      line-height: 1.05;
+      color: #fff;
+      text-shadow: 0 2px 40px rgba(0, 0, 0, 0.6), 0 0 60px rgba(196, 69, 105, 0.3);
+      animation: fadeInUp 1s ease 0.7s both;
+    }
+
+    .hero-title span {
+      display: block;
+      font-style: italic;
+      background: linear-gradient(130deg, #f7c5d0 0%, #d4a66a 45%, #e8728a 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      margin-top: 10px;
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(247, 197, 208, 0.6);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      animation: fadeInUp 1s ease 0.9s both;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      animation: fadeInUp 1s ease 1.4s both;
+      z-index: 2;
+    }
+
+    .scroll-hint-text {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(247, 197, 208, 0.4);
+    }
+
+    .scroll-arrow {
+      width: 20px;
+      height: 20px;
+      border-right: 1.5px solid rgba(247, 197, 208, 0.3);
+      border-bottom: 1.5px solid rgba(247, 197, 208, 0.3);
+      transform: rotate(45deg);
+      animation: bounceDown 2s ease infinite;
+    }
+
+    @keyframes bounceDown {
+
+      0%,
+      100% {
+        transform: rotate(45deg) translateY(0);
+      }
+
+      50% {
+        transform: rotate(45deg) translateY(7px);
+      }
+    }
+
+    /* ============================================================
+       CHAPTER — full-bleed photo + text overlay
+    ============================================================ */
+    .chapter {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      /* each chapter = full screen */
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    /* Photo fills entire chapter */
+    .chapter-bg {
+      position: absolute;
+      inset: -12%;
+      /* room for parallax travel */
+      z-index: 0;
+      will-change: transform;
+    }
+
+    .chapter-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+      will-change: transform;
+      filter: brightness(0.72) saturate(1.15);
+      transition: filter 0.4s ease;
+    }
+
+    /* Ken Burns animation when chapter enters view */
+    .chapter-bg img.kb-active {
+      animation: kenBurns 8s ease-in-out forwards;
+    }
+
+    @keyframes kenBurns {
+      0% {
+        transform: scale(1.05) translate(0%, 0%);
+      }
+
+      50% {
+        transform: scale(1.12) translate(-2%, -1%);
+      }
+
+      100% {
+        transform: scale(1.08) translate(1%, 0.5%);
+      }
+    }
+
+    /* Layered gradient: dark at bottom for text readability */
+    .chapter-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(to bottom,
+          rgba(10, 3, 6, 0.08) 0%,
+          rgba(10, 3, 6, 0.0) 20%,
+          rgba(10, 3, 6, 0.45) 55%,
+          rgba(10, 3, 6, 0.92) 85%,
+          rgba(10, 3, 6, 1.00) 100%),
+        linear-gradient(to top,
+          rgba(196, 69, 105, 0.08) 0%,
+          transparent 40%);
+    }
+
+    /* Side vignette */
+    .chapter-overlay::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 40px 0 60px rgba(10, 3, 6, 0.3),
+        inset -40px 0 60px rgba(10, 3, 6, 0.3);
+    }
+
+    /* Text content — sits at bottom over photo */
+    .chapter-body {
+      position: relative;
+      z-index: 2;
+      padding: 0 24px 40px;
+      margin-top: auto;
+    }
+
+    .chapter-eyebrow {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 10px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .chapter-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(26px, 7vw, 34px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 14px;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
+    }
+
+    .chapter-text {
+      font-size: 14.5px;
+      line-height: 1.85;
+      color: rgba(255, 245, 240, 0.82);
+      font-weight: 300;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
+    }
+
+    .chapter-text+.chapter-text {
+      margin-top: 12px;
+    }
+
+    /* animated in when chapter is visible */
+    .chapter.in-view .chapter-eyebrow,
+    .chapter.in-view .chapter-title,
+    .chapter.in-view .chapter-text {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .chapter.in-view .chapter-title {
+      transition-delay: 0.12s;
+    }
+
+    .chapter.in-view .chapter-text {
+      transition-delay: 0.22s;
+    }
+
+    .highlight {
+      background: linear-gradient(135deg, rgba(196, 69, 105, 0.22), rgba(181, 103, 107, 0.12));
+      border: 1px solid rgba(196, 69, 105, 0.28);
+      border-radius: 5px;
+      padding: 1px 8px;
+      font-weight: 500;
+      color: var(--blush);
+    }
+
+    /* thin rose accent line above text block */
+    .chapter-body::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--deep-rose), var(--rose-gold));
+      border-radius: 2px;
+      margin-bottom: 12px;
+      opacity: 0;
+      transition: opacity 0.5s ease 0.05s;
+    }
+
+    .chapter.in-view .chapter-body::before {
+      opacity: 1;
+    }
+
+    /* ============================================================
+       ORNAMENT / DIVIDER BETWEEN CHAPTERS
+    ============================================================ */
+    .chapter-divider {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 28px;
+      background: linear-gradient(180deg, transparent, rgba(10, 3, 6, 0.6) 30%, rgba(10, 3, 6, 0.6) 70%, transparent);
+      height: 0;
+      /* zero height, purely visual */
+    }
+
+    /* ============================================================
+       CLOSING LETTER SECTION
+    ============================================================ */
+    #closing {
+      position: relative;
+      z-index: 1;
+      padding: 60px 24px 48px;
+      background: linear-gradient(180deg, #0a0306 0%, #1a0610 50%, #0a0306 100%);
+    }
+
+    .closing-ornament {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      justify-content: center;
+      margin-bottom: 36px;
+    }
+
+    .closing-ornament .line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(247, 197, 208, 0.3), transparent);
+    }
+
+    .closing-ornament .gem {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      background: linear-gradient(135deg, var(--deep-rose), var(--rose-gold));
+      transform: rotate(45deg);
+      box-shadow: 0 0 12px rgba(196, 69, 105, 0.5);
+    }
+
+    .closing-card {
+      background: rgba(255, 245, 240, 0.04);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(247, 197, 208, 0.12);
+      border-radius: 28px;
+      padding: 36px 26px;
+      text-align: center;
+    }
+
+    .closing-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-style: italic;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 20px;
+      text-shadow: 0 0 30px rgba(196, 69, 105, 0.4);
+    }
+
+    .closing-text {
+      font-size: 15px;
+      line-height: 1.9;
+      color: rgba(255, 245, 240, 0.72);
+      font-weight: 300;
+    }
+
+    .closing-text+.closing-text {
+      margin-top: 14px;
+    }
+
+    .closing-sign {
+      margin-top: 28px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--blush);
+    }
+
+    /* ============================================================
+       CELEBRATE FOOTER
+    ============================================================ */
+    #celebrate {
+      position: relative;
+      z-index: 1;
+      padding: 48px 24px 100px;
+      text-align: center;
+      background: #0a0306;
+    }
+
+    #celebrate::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(196, 69, 105, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .celebrate-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(34px, 9vw, 46px);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+      text-shadow: 0 0 30px rgba(196, 69, 105, 0.5);
+    }
+
+    .celebrate-sub {
+      font-size: 13px;
+      color: rgba(247, 197, 208, 0.45);
+      margin-bottom: 44px;
+      font-weight: 300;
+    }
+
+    .celebrate-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 48px;
+      border-radius: 100px;
+      border: none;
+      background: linear-gradient(135deg, var(--deep-rose) 0%, var(--rose-gold) 100%);
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      animation: glowPulse 3s ease-in-out infinite;
+      transition: transform 0.25s ease;
+    }
+
+    @keyframes glowPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 8px 30px rgba(196, 69, 105, 0.4);
+      }
+
+      50% {
+        box-shadow: 0 14px 54px rgba(196, 69, 105, 0.7), 0 0 0 10px rgba(196, 69, 105, 0);
+      }
+    }
+
+    .celebrate-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .celebrate-btn:active {
+      transform: scale(0.96);
+    }
+
+    .confetti-piece {
+      position: fixed;
+      top: -20px;
+      border-radius: 2px;
+      animation: confettiFall linear forwards;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    @keyframes confettiFall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    /* ============================================================
+       SCROLL REVEAL HELPERS
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .d1 {
+      transition-delay: 0.1s;
+    }
+
+    .d2 {
+      transition-delay: 0.2s;
+    }
+
+    /* ============================================================
+       MUSIC TOGGLE
+    ============================================================ */
+    #music-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 16px;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(196, 69, 105, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(247, 197, 208, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      z-index: 200;
+      box-shadow: 0 4px 18px rgba(196, 69, 105, 0.3);
+      transition: transform 0.25s ease;
+      user-select: none;
+    }
+
+    #music-btn:hover {
+      transform: scale(1.1);
+    }
+
+    #music-btn.playing {
+      animation: musicBeat 0.9s ease-in-out infinite alternate;
+    }
+
+    @keyframes musicBeat {
+      0% {
+        box-shadow: 0 4px 18px rgba(196, 69, 105, 0.3);
+      }
+
+      100% {
+        box-shadow: 0 4px 30px rgba(196, 69, 105, 0.7), 0 0 0 7px rgba(196, 69, 105, 0.1);
+      }
+    }
+
+    /* ============================================================
+       KEYFRAMES
+    ============================================================ */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    ::-webkit-scrollbar {
+      width: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(196, 69, 105, 0.35);
+      border-radius: 2px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="particles"></div>
+  <button id="music-btn" title="Toggle ambient music" aria-label="Toggle music">&#127925;</button>
+
+  <div id="app">
+
+    <!-- ===================== HERO ===================== -->
+    <section id="hero">
+      <div class="hero-img-wrap" id="hero-parallax">
+        <img src="HERO.jpeg" alt="Hero" id="hero-img" />
+      </div>
+      <div class="hero-text">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          2 Years Together
+        </div>
+        <h1 class="hero-title">
+          Happy Birthday
+          <span>My Babydoll</span>
+        </h1>
+        <p class="hero-subtitle">A letter from my heart to yours</p>
+      </div>
+      <div class="scroll-hint">
+        <span class="scroll-hint-text">Scroll</span>
+        <div class="scroll-arrow"></div>
+      </div>
+    </section>
+
+    <!-- ===================== CHAPTER 1 ===================== -->
+    <div class="chapter" data-index="0">
+      <div class="chapter-bg">
+        <img src="WhatsApp Image 2026-10-11 at 11.20.41 PM.jpeg" alt="Our beginning" />
+      </div>
+      <div class="chapter-overlay"></div>
+      <div class="chapter-body">
+        <span class="chapter-eyebrow">The Beginning</span>
+        <h2 class="chapter-title">Helllooo… Babydoll</h2>
+        <p class="chapter-text">This is your chotu sa BF, <span class="highlight">Sanskar</span>. It's been <span
+            class="highlight">2 whole years</span> since you became mine, and <span class="highlight">5 years</span>
+          since the day you first walked into my life.</p>
+      </div>
+    </div>
+
+    <!-- ===================== CHAPTER 2 ===================== -->
+    <div class="chapter" data-index="1">
+      <div class="chapter-bg">
+        <img src="WhatsApp Image 2026-10-11 at 11.20.42 PM.jpeg" alt="A beautiful accident" />
+      </div>
+      <div class="chapter-overlay"></div>
+      <div class="chapter-body">
+        <span class="chapter-eyebrow">How We Met</span>
+        <h2 class="chapter-title">A Beautiful Accident</h2>
+        <p class="chapter-text">Meeting you was such a strange, beautiful accident. One day, Ritvansh and I thought
+          about meeting Didi at her place. That was the very first time I saw you.</p>
+        <p class="chapter-text">I still remember how shy I was — and according to you, quite a chatty person! I hopped
+          on my cycle and rode to your place, not knowing that day would change everything.</p>
+      </div>
+    </div>
+
+    <!-- ===================== CHAPTER 3 ===================== -->
+    <div class="chapter" data-index="2">
+      <div class="chapter-bg">
+        <img src="WhatsApp Image 2026-10-11 at 11.20.43 PM.jpeg" alt="The first time I knew" />
+      </div>
+      <div class="chapter-overlay"></div>
+      <div class="chapter-body">
+        <span class="chapter-eyebrow">Something Special</span>
+        <h2 class="chapter-title">The First Time I Knew</h2>
+        <p class="chapter-text">I found you so interesting, sweet, and cool. I had never met a girl like you before. You
+          were so warm and gentle toward me from day one.</p>
+        <p class="chapter-text">People say everyone meets someone who teaches them about emotions… I think for me, that
+          person was <span class="highlight">you</span>.</p>
+      </div>
+    </div>
+
+    <!-- ===================== CHAPTER 4 ===================== -->
+    <div class="chapter" data-index="3">
+      <div class="chapter-bg">
+        <img src="WhatsApp Image 2026-10-11 at 11.20.43 PM (2).jpeg" alt="How silly I was" />
+      </div>
+      <div class="chapter-overlay"></div>
+      <div class="chapter-body">
+        <span class="chapter-eyebrow">My Regrets</span>
+        <h2 class="chapter-title">How Silly I Was</h2>
+        <p class="chapter-text">I don't know why I was so careless about your feelings. I was just busy getting hurt
+          again and again, then running to you to express my emotions — yet for so long, <span class="highlight">you
+            never complained</span>.</p>
+        <p class="chapter-text">That one night I told you "Wait for me…" and then forgot — I think that was the first
+          time you got genuinely hurt. From that day, you took a <span class="highlight">special, irreplaceable
+            place</span> in my heart.</p>
+      </div>
+    </div>
+
+    <!-- ===================== CHAPTER 5 ===================== -->
+    <div class="chapter" data-index="4">
+      <div class="chapter-bg">
+        <img src="WhatsApp Image 2026-10-11 at 11.22.52 PM.jpeg" alt="The silence" />
+      </div>
+      <div class="chapter-overlay"></div>
+      <div class="chapter-body">
+        <span class="chapter-eyebrow">The Gap</span>
+        <h2 class="chapter-title">The Silence</h2>
+        <p class="chapter-text">After that, when you both moved, we were completely cut off. But I was still holding on,
+          regularly texting because being away from you was so hard.</p>
+        <p class="chapter-text">Every minute, I was thinking about you, secretly hoping you'd text back… Slowly, I just
+          accepted the silence.</p>
+      </div>
+    </div>
+
+    <!-- ===================== CHAPTER 6 ===================== -->
+    <div class="chapter" data-index="5">
+      <div class="chapter-bg">
+        <img src="WhatsApp Image 2026-10-11 at 11.22.522 PM.jpeg" alt="Our real story begins" />
+      </div>
+      <div class="chapter-overlay"></div>
+      <div class="chapter-body">
+        <span class="chapter-eyebrow">A New Chapter</span>
+        <h2 class="chapter-title">Our Real Story Begins</h2>
+        <p class="chapter-text">When you both came to Jaipur and we met at <span class="highlight">Palika FPF</span> —
+          all those feelings I thought were gone came rushing right back!</p>
+        <p class="chapter-text">Soon we started talking again. But this time, it felt so much deeper than just
+          friendship. And one day you were there alone, and asked me: <span class="highlight">"What am I to you?"</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- ===================== CHAPTER 7 ===================== -->
+    <div class="chapter" data-index="6">
+      <div class="chapter-bg">
+        <img src="WhatsApp Image 2026-10-11 at 11.223.53 PM.jpeg" alt="I poured my heart out" />
+      </div>
+      <div class="chapter-overlay"></div>
+      <div class="chapter-body">
+        <span class="chapter-eyebrow">The Confession</span>
+        <h2 class="chapter-title">I Poured My Heart Out</h2>
+        <p class="chapter-text">After I got home, you texted asking what I really felt. So I poured my heart out — every
+          single thought I had been holding inside.</p>
+        <p class="chapter-text">I was afraid confessing might ruin our friendship, but <span class="highlight">you were
+            so gentle, calm, and sweet</span>. The bond started unnamed, but <span class="highlight">the love has always
+            been 100% real</span>.</p>
+      </div>
+    </div>
+
+    <!-- ===================== CHAPTER 8 ===================== -->
+    <div class="chapter" data-index="7">
+      <div class="chapter-bg">
+        <img src="WhatsApp Image new.jpeg" alt="You never let me go" />
+      </div>
+      <div class="chapter-overlay"></div>
+      <div class="chapter-body">
+        <span class="chapter-eyebrow">Through It All</span>
+        <h2 class="chapter-title">You Never Let Me Go</h2>
+        <p class="chapter-text">We've had our fair share of fights, but crossing through all of it only brought us
+          closer. Like that moment I was frustrated, wanting to walk away…</p>
+        <p class="chapter-text">But <span class="highlight">you just held my hand and didn't let me leave</span>. I am
+          so deeply blessed to have such a pure love and the most amazing girlfriend in the world.</p>
+      </div>
+    </div>
+
+    <!-- ===================== CHAPTER 9 ===================== -->
+    <div class="chapter" data-index="8">
+      <div class="chapter-bg">
+        <img src="WhatsApp Image 2026-10-11 at 11.22.52 PM.jpeg" alt="Always by your side" />
+      </div>
+      <div class="chapter-overlay"></div>
+      <div class="chapter-body">
+        <span class="chapter-eyebrow">My Promise</span>
+        <h2 class="chapter-title">Always By Your Side</h2>
+        <p class="chapter-text">I always want to be a part of your life in every possible way. I will always be right
+          here — supporting you, motivating you, and loving you endlessly.</p>
+      </div>
+    </div>
+
+    <!-- ===================== CHAPTER 10 ===================== -->
+    <div class="chapter" data-index="9">
+      <div class="chapter-bg">
+        <img src="WhatsApp Image new.jpeg" alt="Our forever" />
+      </div>
+      <div class="chapter-overlay"></div>
+      <div class="chapter-body">
+        <span class="chapter-eyebrow">Our Forever</span>
+        <h2 class="chapter-title">May All Your Dreams Come True</h2>
+        <p class="chapter-text">May you achieve your dream car, your dream house, and all the success in the world. Keep
+          working hard and shining bright, my love.</p>
+        <p class="chapter-text">It's just pure care, love, affection, attraction, and cute little insecurities for each
+          other. I love you more than words could ever say.</p>
+      </div>
+    </div>
+
+    <!-- ===================== CLOSING ===================== -->
+    <section id="closing">
+      <div class="closing-ornament">
+        <div class="line"></div>
+        <div class="gem"></div>
+        <div class="line"></div>
+      </div>
+      <div class="closing-card reveal">
+        <p class="closing-title">Happy Birthday, My Sweetheart!</p>
+        <p class="closing-text">May you achieve everything you've ever dreamed of. Keep working hard and shining bright.
+        </p>
+        <p class="closing-text">I will always be right here by your side, supporting you, motivating you, and loving you
+          endlessly.</p>
+        <p class="closing-sign">— Your Chirkut, Sanskar</p>
+      </div>
+    </section>
+
+    <!-- ===================== CELEBRATE ===================== -->
+    <section id="celebrate">
+      <p class="celebrate-title reveal">Happy Birthday, Baby!</p>
+      <p class="celebrate-sub reveal d1">Tap to celebrate this moment</p>
+      <button class="celebrate-btn reveal d2" id="confettiBtn" onclick="triggerCelebration()">
+        Celebrate!
+      </button>
+    </section>
+
+  </div><!-- /#app -->
+
+  <script>
+    /* =========================================
+       PARTICLES
+    ========================================= */
+    (function () {
+      const c = document.getElementById('particles');
+      const s = ['❤', '✦', '✧', '·', '♡', '✿', '◦', '⋆'];
+      for (let i = 0; i < 22; i++) {
+        const el = document.createElement('div');
+        el.className = 'particle';
+        el.textContent = s[i % s.length];
+        el.style.cssText = `
+      left:${Math.random() * 100}%;
+      font-size:${8 + Math.random() * 12}px;
+      animation-duration:${9 + Math.random() * 14}s;
+      animation-delay:${Math.random() * 14}s;
+      color:rgba(247,197,208,${0.15 + Math.random() * 0.3});
+    `;
+        c.appendChild(el);
+      }
+    })();
+
+    /* =========================================
+       SCROLL REVEAL
+    ========================================= */
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    /* =========================================
+       CHAPTER SCROLL EFFECTS
+       - in-view class → text animates in
+       - Ken Burns on img
+       - Parallax translateY on .chapter-bg
+    ========================================= */
+    const chapters = document.querySelectorAll('.chapter');
+
+    const chapterObs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const ch = entry.target;
+        const img = ch.querySelector('.chapter-bg img');
+        if (entry.isIntersecting) {
+          ch.classList.add('in-view');
+          if (img) {
+            img.classList.remove('kb-active');
+            void img.offsetWidth; // reflow to restart animation
+            img.classList.add('kb-active');
+          }
+        } else {
+          ch.classList.remove('in-view');
+        }
+      });
+    }, { threshold: 0.25 });
+
+    chapters.forEach(ch => chapterObs.observe(ch));
+
+    /* =========================================
+       PARALLAX on SCROLL
+       Moves .chapter-bg up/down as user scrolls
+    ========================================= */
+    function applyParallax() {
+      const wH = window.innerHeight;
+
+      // Hero parallax
+      const heroImg = document.getElementById('hero-img');
+      if (heroImg) {
+        const p = Math.min(window.scrollY / wH, 1);
+        heroImg.style.transform = `scale(1.08) translateY(${p * 18}%)`;
+      }
+
+      // Chapter parallax
+      chapters.forEach(ch => {
+        const bg = ch.querySelector('.chapter-bg');
+        const img = ch.querySelector('.chapter-bg img');
+        if (!bg || !img) return;
+        const rect = ch.getBoundingClientRect();
+        // normalized: 0 when chapter centre is at screen centre, ±1 at edges
+        const rel = (rect.top + rect.height / 2 - wH / 2) / (wH * 0.8);
+        const clmp = Math.max(-1, Math.min(1, rel));
+        // moves image opposite to scroll direction — classic parallax
+        const shift = clmp * 12; // percent — gentle
+        img.style.transform = `translateY(${shift}%) scale(1.08)`;
+      });
+    }
+
+    window.addEventListener('scroll', applyParallax, { passive: true });
+    applyParallax();
+
+    /* =========================================
+       CONFETTI
+    ========================================= */
+    function triggerCelebration() {
+      const btn = document.getElementById('confettiBtn');
+      btn.textContent = 'YAY!!!';
+      setTimeout(() => { btn.textContent = 'Celebrate!'; }, 3200);
+
+      const colors = ['#f7c5d0', '#e8728a', '#c44569', '#d4a66a', '#fff5f0', '#b5676b'];
+      const shapes = ['❤', '✦', '♡', '✿', '⋆'];
+      for (let i = 0; i < 120; i++) {
+        setTimeout(() => {
+          const el = document.createElement('div');
+          el.className = 'confetti-piece';
+          if (Math.random() > 0.42) {
+            el.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+            el.style.fontSize = (10 + Math.random() * 16) + 'px';
+          } else {
+            el.style.width = (5 + Math.random() * 8) + 'px';
+            el.style.height = (5 + Math.random() * 8) + 'px';
+            el.style.background = colors[Math.floor(Math.random() * colors.length)];
+            el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+          }
+          el.style.left = (Math.random() * 100) + 'vw';
+          el.style.animationDuration = (2 + Math.random() * 3) + 's';
+          el.style.animationDelay = (Math.random() * 0.8) + 's';
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 5500);
+        }, i * 20);
+      }
+    }
+
+    /* =========================================
+       AMBIENT MUSIC
+    ========================================= */
+    let audioCtx = null, gainNode = null, oscs = [], playing = false;
+    const btn = document.getElementById('music-btn');
+
+    function startMusic() {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      gainNode = audioCtx.createGain();
+      gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+      gainNode.gain.linearRampToValueAtTime(0.055, audioCtx.currentTime + 2);
+      gainNode.connect(audioCtx.destination);
+      [220, 261.63, 329.63, 392, 440].forEach((freq, i) => {
+        const osc = audioCtx.createOscillator(), g = audioCtx.createGain();
+        osc.type = 'sine'; osc.frequency.value = freq; g.gain.value = 0.18 / 5;
+        osc.connect(g); g.connect(gainNode);
+        const lfo = audioCtx.createOscillator(), lg = audioCtx.createGain();
+        lfo.frequency.value = 0.18 + i * 0.04; lg.gain.value = 0.03;
+        lfo.connect(lg); lg.connect(g.gain);
+        osc.start(); lfo.start(); oscs.push(osc, lfo);
+      });
+    }
+    function stopMusic() {
+      if (!gainNode) return;
+      gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1.5);
+      setTimeout(() => {
+        oscs.forEach(o => { try { o.stop(); } catch (e) { } });
+        oscs = []; audioCtx.close(); audioCtx = gainNode = null;
+      }, 1700);
+    }
+    btn.addEventListener('click', () => {
+      playing = !playing;
+      if (playing) { startMusic(); btn.textContent = '♬'; btn.classList.add('playing'); }
+      else { stopMusic(); btn.textContent = '♪'; btn.classList.remove('playing'); }
+    });
+
+    /* Initial reveal check */
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.reveal').forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight * 0.92)
+          el.classList.add('visible');
+      });
+    });
+  </script>
+</body>
+
+</html>
