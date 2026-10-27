@@ -747,6 +747,36 @@
       background: rgba(196, 69, 105, 0.35);
       border-radius: 2px;
     }
+
+    /* ============================================================
+       FALLING FLOWER PETALS
+    ============================================================ */
+    .petal {
+      position: fixed;
+      top: -60px;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0;
+      user-select: none;
+      animation: petalFall linear forwards;
+    }
+
+    @keyframes petalFall {
+      0% {
+        transform: translateY(0) rotate(0deg) scale(0.8);
+        opacity: 0;
+      }
+      8% {
+        opacity: 1;
+      }
+      85% {
+        opacity: 0.85;
+      }
+      100% {
+        transform: translateY(110vh) rotate(540deg) scale(1.1);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 
@@ -1090,39 +1120,80 @@
     }
 
     /* =========================================
-       AMBIENT MUSIC
+       AMBIENT MUSIC — real MP3
     ========================================= */
-    let audioCtx = null, gainNode = null, oscs = [], playing = false;
-    const btn = document.getElementById('music-btn');
+    const musicAudio = new Audio('AudioTranscriberAI_Love Story (Orchestra version) - Indila (slowed, reverb, 10 min loop, choir part only).mp3');
+    musicAudio.loop = true;
+    musicAudio.volume = 0.85;
 
-    function startMusic() {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      gainNode = audioCtx.createGain();
-      gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-      gainNode.gain.linearRampToValueAtTime(0.055, audioCtx.currentTime + 2);
-      gainNode.connect(audioCtx.destination);
-      [220, 261.63, 329.63, 392, 440].forEach((freq, i) => {
-        const osc = audioCtx.createOscillator(), g = audioCtx.createGain();
-        osc.type = 'sine'; osc.frequency.value = freq; g.gain.value = 0.18 / 5;
-        osc.connect(g); g.connect(gainNode);
-        const lfo = audioCtx.createOscillator(), lg = audioCtx.createGain();
-        lfo.frequency.value = 0.18 + i * 0.04; lg.gain.value = 0.03;
-        lfo.connect(lg); lg.connect(g.gain);
-        osc.start(); lfo.start(); oscs.push(osc, lfo);
+    const btn = document.getElementById('music-btn');
+    let playing = false;
+
+    /* =========================================
+       FALLING FLOWER PETALS
+    ========================================= */
+    const petalSymbols = ['🌸', '🌺', '🌷', '🍀', '🌼', '✿', '❀', '♡'];
+    let petalInterval = null;
+
+    function spawnPetal() {
+      const el = document.createElement('div');
+      el.className = 'petal';
+      const sym = petalSymbols[Math.floor(Math.random() * petalSymbols.length)];
+      el.textContent = sym;
+      const size = 14 + Math.random() * 20;
+      el.style.fontSize = size + 'px';
+      el.style.left = (Math.random() * 102) + 'vw';
+      const duration = 5 + Math.random() * 7;
+      el.style.animationDuration = duration + 's';
+      el.style.animationDelay = (Math.random() * 1.5) + 's';
+      document.body.appendChild(el);
+      // Remove after animation completes
+      setTimeout(() => el.remove(), (duration + 2) * 1000);
+    }
+
+    function startPetals() {
+      if (petalInterval) return;
+      // Spawn immediately then on interval
+      spawnPetal();
+      petalInterval = setInterval(spawnPetal, 350);
+    }
+
+    function stopPetals() {
+      if (petalInterval) {
+        clearInterval(petalInterval);
+        petalInterval = null;
+      }
+      // Fade out existing petals gracefully
+      document.querySelectorAll('.petal').forEach(p => {
+        p.style.transition = 'opacity 1.5s ease';
+        p.style.opacity = '0';
+        setTimeout(() => p.remove(), 1600);
       });
     }
-    function stopMusic() {
-      if (!gainNode) return;
-      gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1.5);
-      setTimeout(() => {
-        oscs.forEach(o => { try { o.stop(); } catch (e) { } });
-        oscs = []; audioCtx.close(); audioCtx = gainNode = null;
-      }, 1700);
-    }
+
     btn.addEventListener('click', () => {
       playing = !playing;
-      if (playing) { startMusic(); btn.textContent = '♬'; btn.classList.add('playing'); }
-      else { stopMusic(); btn.textContent = '♪'; btn.classList.remove('playing'); }
+      if (playing) {
+        musicAudio.play().catch(() => {});
+        btn.textContent = '♬';
+        btn.classList.add('playing');
+        startPetals();
+      } else {
+        musicAudio.pause();
+        btn.textContent = '♪';
+        btn.classList.remove('playing');
+        stopPetals();
+      }
+    });
+
+    // When song naturally ends (though it's looped, just in case)
+    musicAudio.addEventListener('ended', () => {
+      if (!musicAudio.loop) {
+        playing = false;
+        btn.textContent = '♪';
+        btn.classList.remove('playing');
+        stopPetals();
+      }
     });
 
     /* Initial reveal check */
